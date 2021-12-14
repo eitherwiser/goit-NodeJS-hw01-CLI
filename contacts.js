@@ -11,44 +11,65 @@ const contactsPath = path.normalize(path.resolve('./db/contacts.json'));
 
 
 async function listContacts() {
-  console.table(await getJSON(contactsPath));
+  try {
+    console.table(await getJSON(contactsPath));
+  }
+  catch (error) {
+    console.log(error)
+  }
 };
 
 async function getContactById(contactId) {
-  contacts = await getJSON(contactsPath);
-  let contact = contacts.filter(item => item.id === contactId);
-  console.table(contact);
+  try {
+    contacts = await getJSON(contactsPath);
+    let contact = contacts.filter(item => item.id === contactId);
+    console.table(contact);
+  }
+  catch (error) {
+    console.log(error)
+  }
 };
 
 async function removeContact(contactId) {
-  console.log('Removed Contact:');
-  removedContact = await getContactById(contactId);
+  try {
+    console.log('Removed Contact:');
+    removedContact = await getContactById(contactId);
 
-  contacts = await getJSON(contactsPath);
-  newContacts = contacts.filter(item => item.id !== contactId);
-  await writeJSON(newContacts, contactsPath);
+    contacts = await getJSON(contactsPath);
+    newContacts = contacts.filter(item => item.id !== contactId);
+    await writeJSON(newContacts, contactsPath);
 
-  console.log('New contacts:')
-  listContacts();
+    console.log('New contacts:')
+    listContacts();
+  }
+  catch (error) {
+    console.log(error)
+  }
+
 };
 
 async function addContact(name, email, phone) {
-  const normalize = (param) => {
-    if (typeof (param) !== String) {
-      return param.toString();
+  try {
+    const normalize = (param) => {
+      if (typeof (param) !== String) {
+        return param.toString();
+      }
+      return param;
     }
-    return param;
-  }
 
-  const data = {
-    id: await nanoid(),
-    name: normalize(name),
-    email: normalize(email),
-    phone: normalize(phone),
-  }
+    const data = {
+      id: await nanoid(),
+      name: normalize(name),
+      email: normalize(email),
+      phone: normalize(phone),
+    }
 
-  await appendJSON(data, contactsPath)
-  listContacts();
+    await appendJSON(data, contactsPath)
+    listContacts();
+  }
+  catch (error) {
+    console.log(error)
+  }
 };
 
 

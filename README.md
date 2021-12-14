@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Show all contacts
 
 node index -a list
@@ -22,6 +21,3 @@ node index -a remove -id 3
 node index -a add -n Andrew -e man@man.com -p 333333333
 
 <img src="./report/addNew.JPG" alt="Add new contact" with="400" />
-=======
-
->>>>>>> 7fd92c8dee63ed6be465585ccb764a49625cc022
